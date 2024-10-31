@@ -11,6 +11,7 @@ use App\Utils\Api\CommonUtil;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -77,5 +78,46 @@ class AuthController extends Controller
             return CommonUtil::errorResponse(__('auth.registration_failed'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+        /**
+     * Refresh user token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refreshToken(): JsonResponse
+    {
+        try {
+
+            $new_token = JWTAuth::refresh(JWTAuth::getToken());
+
+            return CommonUtil::successResponse([
+                'token' => $new_token
+            ], __('auth.succesfull_new_token'));
+
+        } catch (Exception $e) {
+            return CommonUtil::errorResponse(__('auth.refresh_tokent_error'), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Logout the authenticated user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+  public function logout(Request $request): JsonResponse
+  {
+      try {
+
+        JWTAuth::invalidate(JWTAuth::getToken());
+
+        return CommonUtil::successResponse([
+          'user' => new UserResource($request->user())
+        ], __('auth.succesfull_logout'));
+
+    } catch (Exception $e) {
+      return CommonUtil::errorResponse(__('auth.logout_error'), Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+  }
 
 }

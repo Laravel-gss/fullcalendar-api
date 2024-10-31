@@ -19,5 +19,9 @@ return [
     "login_successful" => "Login successful",
     "register_successful" => "Registration successful",
     "registration_failed" => "There was an error during registration",
+    "succesfull_new_token" => "New token access",
+    "logout_error" => "There was an error during logout",
+    "refresh_tokent_error" => "There was an error refreshing token",
+    "succesfull_logout" => "Logout successful",
 
 ];

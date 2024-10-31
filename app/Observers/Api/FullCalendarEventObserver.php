@@ -13,7 +13,7 @@ class FullCalendarEventObserver
      * @param  \App\Models\FullCalendarEvent  $event
      * @return void
      */
-    public function creating(FullCalendarEvent $event)
+    public function creating(FullCalendarEvent $event): void
     {
         if (empty($event->status)) {
             $event->status = FullCalendarEventStatus::PENDING;

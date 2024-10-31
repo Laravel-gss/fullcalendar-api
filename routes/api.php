@@ -12,6 +12,12 @@ Route::get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function () {
 
     Route::middleware(['jwt.auth'])->group(function () {
+
+        Route::group(['prefix' => 'auth'], function() {
+            Route::post('/logout', [AuthController::class, 'logout']);
+            Route::get('/refresh-token', [AuthController::class, 'refreshToken']);
+        });
+
         Route::prefix('users/events')->group(function() {
             Route::get('/', [UserEventController::class, 'index']);
             Route::post('/', [UserEventController::class, 'store']);
