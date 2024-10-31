@@ -21,8 +21,10 @@ Route::group(['prefix' => 'v1'], function () {
         });
     });
 
-    Route::post('/auth/login', [AuthController::class, 'login']);
-    Route::post('/auth/register', [AuthController::class, 'register']);
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/register', [AuthController::class, 'register']);
+    });
 
 });
 

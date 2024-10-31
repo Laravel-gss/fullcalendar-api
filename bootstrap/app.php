@@ -1,6 +1,7 @@
 <?php
 
 use App\Exceptions\Api\ExceptionResponses;
+use App\Http\Middleware\Api\Timezone;
 use App\Utils\Api\CommonUtil;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,7 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->group('api', [
+            Timezone::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (Throwable $e) {

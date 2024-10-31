@@ -13,10 +13,17 @@ return [
     |
     */
 
-    'list' => 'List of fullCalendar events',
+    'list' => 'List of FullCalendar events',
     'event' => 'FullCalendar event',
     'created_successfully' => 'FullCalendar event created successfully',
     'deleted_successfully' => 'FullCalendar event deleted successfully',
     'updated_successfully' => 'FullCalendar event updated successfully',
-    'not_found' => 'FullCalendar event not found'
+    'not_found' => 'FullCalendar event not found',
+    'new_notification' => "You've successfully created a new FullCalendar event",
+    'updated_notification' => "You've successfully updated a FullCalendar event",
+    'deleted_notification' => "You've successfully deleted a FullCalendar event",
+    'name' => "Name",
+    'date' => "Date",
+    'description' => "Description",
+    'status' => "Status"
 ];

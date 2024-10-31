@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\Api\FullCalendarEventDeleted;
+use App\Events\Api\FullCalendarEventUpdated;
+use App\Events\Api\NewFullCalendarEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\GetUserEventByIdRequest;
 use App\Http\Requests\Api\NewUserEventRequest;
@@ -52,7 +55,10 @@ class UserEventController extends Controller
         $data = $request->validated();
 
         try {
+
             $user_event = $this->full_calendar_event->createUserEvent($data);
+
+            event(new NewFullCalendarEvent($user_event));
 
             return CommonUtil::successResponse([
                 'data' => [
@@ -109,6 +115,8 @@ class UserEventController extends Controller
                 return CommonUtil::errorResponse(__('full_calendar_events.not_found'), Response::HTTP_NOT_FOUND);
             }
 
+            event(new FullCalendarEventUpdated($user_event));
+
             return CommonUtil::successResponse([
                 'data' => [
                     'event' => new FullCalendarEventResource($user_event)
@@ -136,6 +144,8 @@ class UserEventController extends Controller
             if (!$user_event) {
                 return CommonUtil::errorResponse(__('full_calendar_events.not_found'), Response::HTTP_NOT_FOUND);
             }
+
+            event(new FullCalendarEventDeleted($user_event));
 
             return CommonUtil::successResponse([], __('full_calendar_events.deleted_successfully'));
 

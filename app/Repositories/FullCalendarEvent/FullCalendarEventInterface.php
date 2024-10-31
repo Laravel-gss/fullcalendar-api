@@ -29,9 +29,9 @@ interface FullCalendarEventInterface
     /**
     * @param string $user_id
     * @param string $event_id
-    * @return bool
+    * @return FullCalendarEvent|null
     */
-    public function deleteUserEventById(string $user_id, string $event_id): bool;
+    public function deleteUserEventById(string $user_id, string $event_id): ?FullCalendarEvent;
 
     /**
     * @param string $user_id

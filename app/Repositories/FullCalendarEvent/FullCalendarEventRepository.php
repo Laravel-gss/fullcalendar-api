@@ -46,18 +46,18 @@ class FullCalendarEventRepository implements FullCalendarEventInterface
     /**
      * @param string $user_id
      * @param string $event_id
-     * @return bool
+     * @return FullCalendarEvent|null
     */
-    public function deleteUserEventById(string $user_id, string $event_id): bool
+    public function deleteUserEventById(string $user_id, string $event_id): ?FullCalendarEvent
     {
         $user_event = $this->getUserEventById($user_id, $event_id);
 
         if($user_event) {
             $user_event->delete();
-            return true;
+            return $user_event;
         }
 
-        return false;
+        return null;
     }
 
     /**
