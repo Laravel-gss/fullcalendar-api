@@ -68,7 +68,7 @@ class AuthController extends Controller
             return CommonUtil::successResponse([
                 'token' => $token,
                 'user' => new UserResource($user)
-            ], __('auth.register_successful'));
+            ], __('auth.register_successful'), Response::HTTP_CREATED);
 
         } catch(QueryException $e) {
             DB::rollBack();

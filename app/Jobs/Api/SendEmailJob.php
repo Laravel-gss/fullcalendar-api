@@ -2,7 +2,6 @@
 
 namespace App\Jobs\Api;
 
-use App\Mail\Api\NewFullCalendarEventEmail;
 use App\Models\FullCalendarEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;

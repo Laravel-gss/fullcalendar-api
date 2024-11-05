@@ -15,7 +15,7 @@ class FullCalendarEventRepository implements FullCalendarEventInterface
     */
     public function getEventsByUserId(string $user_id, array $filters = []): Collection
     {
-        $query = FullCalendarEvent::where('user_id', $user_id);
+        $query = FullCalendarEvent::whereUserId($user_id);
 
         if (isset($filters['start_date']) && isset($filters['end_date'])) {
             $query->whereBetween('date', [$filters['start_date'], $filters['end_date']]);
@@ -40,7 +40,7 @@ class FullCalendarEventRepository implements FullCalendarEventInterface
     */
     public function getUserEventById(string $user_id, string $event_id): ?FullCalendarEvent
     {
-        return FullCalendarEvent::where('id', $event_id)->where('user_id', $user_id)->first();
+        return FullCalendarEvent::whereIdAndUserId($event_id, $user_id)->first();
     }
 
     /**
